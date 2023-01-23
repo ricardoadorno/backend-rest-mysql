@@ -10,8 +10,7 @@ import jakarta.persistence.Column;
 @Entity
 @Table(name = "users")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     private String firstName;
@@ -24,6 +23,16 @@ public class User {
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Column(name = "first_name", nullable = false)
@@ -42,6 +51,12 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "User Name [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName
+                + "]";
     }
 
 }
