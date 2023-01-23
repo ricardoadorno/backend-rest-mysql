@@ -1,4 +1,4 @@
-package com.api.restapipostgress;
+package com.api.restapipostgress.template;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

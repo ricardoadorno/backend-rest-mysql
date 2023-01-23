@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.api.restapipostgress.exception.ResourceNotFoundException;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
@@ -38,8 +43,17 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User createUser(@Validated @RequestBody User user) {
-        return userRepository.save(user);
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user, Errors errors) {
+        if (errors.hasErrors()) {
+            // return the errors
+            Map<String, String> errorMap = new HashMap<>();
+            for (FieldError error : errors.getFieldErrors()) {
+                errorMap.put(error.getField(), error.getDefaultMessage());
+            }
+            return new ResponseEntity(errorMap, HttpStatus.BAD_REQUEST);
+        }
+        User savedUser = userRepository.save(user);
+        return new ResponseEntity<User>(savedUser, HttpStatus.CREATED);
     }
 
     @PutMapping("/users/{id}")
