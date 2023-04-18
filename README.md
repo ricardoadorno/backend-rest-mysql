@@ -7,3 +7,31 @@ This repository contains a list of projects that I have developed using the main
 [ ] Java - Spring Boot
 
 [ ] C# - .NET Core
+
+## Requirements
+
+- CRUD
+
+  - Create
+  - Read
+  - Update
+  - Delete
+
+- MySQL Database
+
+  - Connection
+  - Queries
+  - Tables
+
+- Models
+  - User
+    - Name
+    - Email (Unique)
+    - Password (Hashed)
+    - Role
+  - Comment Post
+    - User
+    - Content
+    - Date
+    - Likes
+    - Dislikes
