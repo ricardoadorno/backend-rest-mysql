@@ -11,7 +11,9 @@ import {
 import { UsersService } from "./users.service";
 import UserEntity from "./user.entity";
 import { CreateUserDto } from "middleware/CreateUserDto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("users")
 @Controller("users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -37,12 +39,6 @@ export class UsersController {
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<UserEntity> {
     return this.usersService.create(createUserDto);
-  }
-
-  // login user
-  @Post("login")
-  async login(@Body() user: UserEntity): Promise<UserEntity> {
-    return this.usersService.login(user.email, user.password);
   }
 
   //update user

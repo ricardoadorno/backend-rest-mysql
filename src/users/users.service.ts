@@ -25,19 +25,6 @@ export class UsersService {
     return this.userRepository.findOne({ where: { email } });
   }
 
-  async login(email: string, password: string): Promise<UserEntity> {
-    const user = await this.userRepository.findOne({ where: { email } });
-    if (!user) {
-      throw new Error("User does not exist!");
-    }
-
-    if (comparePassword(password, user.password)) {
-      return user;
-    }
-
-    throw new Error("Invalid password!");
-  }
-
   async create(user: CreateUserDto): Promise<UserEntity> {
     const newuser = this.userRepository.create(
       Object.assign({}, user, { password: hashPassword(user.password) })
